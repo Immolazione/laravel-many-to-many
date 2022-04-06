@@ -20,6 +20,9 @@
             </option>
             @endforeach
         </select>
+    </div>
+    <div>
+        <label for="category">Tab</label>
         @foreach ($tags as $tag)
         <div class="form-check-input">
             <input class="form-check-input" id="tag-{{ $loop->iteration }}" type="checkbox" value="{{ $tag->id }}" name="tags[]">
@@ -27,6 +30,5 @@
         </div>
         @endforeach
     </div>
-
     <input type="submit" value="Invia">
 </form>
