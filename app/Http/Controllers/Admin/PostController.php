@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Tag;
+use Illuminate\Support\Facades\Storage;
+use App\Mail\SendNewMail;
 use App\Models\Category;
 
 class PostController extends Controller
