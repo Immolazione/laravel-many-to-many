@@ -31,7 +31,13 @@
                       @else - 
                       @endif
                     </td>
-                    <td>@if($post->tag){{ $post->tag }}@else - @endif</td>
+                    <td>
+                        @foreach($post->tags as $tag)
+                          @if($tag){{ $tag->label }}
+                          @else - 
+                          @endif
+                        @endforeach
+                    </td>
                     <td>{{ $post->created_at }}</td>
                     <td class="d-flex justify-content-around align-items-center">
                       <a href="{{ route('admin.posts.show', $post->id) }}">Dettagli</a>
