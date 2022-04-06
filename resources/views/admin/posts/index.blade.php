@@ -11,8 +11,9 @@
                   <tr>
                     <th scope="col">#</th>
                     <th scope="col">Title</th>
-                    <th scope="col">Categoria</th>
                     <th scope="col">slug</th>
+                    <th scope="col">Categoria</th>
+                    <th scope="col">Tag</th>
                     <th scope="col">Creato il</th>
                     <th scope="col">Handle</th>
                   </tr>
@@ -23,13 +24,14 @@
                   <tr>
                     <th scope="row">{{ $post->id }}</th>
                     <td>{{ $post->title }}</td>
+                    <td>{{ $post->slug }}</td>
                     <td>
                       @if($post->category)
                       {{ $post->category->label }}
                       @else - 
                       @endif
                     </td>
-                    <td>{{ $post->slug }}</td>
+                    <td>@if($post->tag){{ $post->tag }}@else - @endif</td>
                     <td>{{ $post->created_at }}</td>
                     <td class="d-flex justify-content-around align-items-center">
                       <a href="{{ route('admin.posts.show', $post->id) }}">Dettagli</a>
