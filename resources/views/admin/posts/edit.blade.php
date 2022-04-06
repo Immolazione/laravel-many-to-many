@@ -20,6 +20,25 @@
             @endforeach
         </select>
     </div>
+    <div>
+        <label for="category">Tab</label>
+        @foreach ($tags as $tag)
+        <div class="form-check-input">
+            <input 
+                class="form-check-input" 
+                id="tag-{{ $loop->iteration }}" 
+                type="checkbox" 
+                value="{{ $tag->id }}" 
+                name="tags[]"
+                @if(in_array($tag->id, old('tags', $post_tag_ids, []))) checked @endif>
+            <label 
+                class="form-check-input" 
+                for="tag-{{ $loop->iteration }}">
+                {{ $tag->label }}
+            </label>
+        </div>
+        @endforeach
+    </div>
 
     <input type="submit" value="Invia">
 </form>
