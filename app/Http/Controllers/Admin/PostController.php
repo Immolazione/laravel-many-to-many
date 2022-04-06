@@ -18,8 +18,9 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::all();
+        $tags = Tag::all();
         $categories = Category::all();
-        return view('admin.posts.index', compact('posts', 'categories'));
+        return view('admin.posts.index', compact('posts', 'categories', 'tags'));
     }
 
     /**
@@ -44,13 +45,13 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-
         $post = new Post();
 
-        
         $post->fill($data);
 
         $post->save();
+
+        if(array_key_exists('tags', $data)) $post->tags()->attach($data['tags']);
 
         return redirect()->route('admin.posts.index');
     }
@@ -79,7 +80,11 @@ class PostController extends Controller
         $categories = Category::all();
         $tags = Tag::all();
 
-        return view('admin.posts.edit', compact('post', 'categories', 'tags'));
+        $post_tag_ids = $post->tags->pluck('id')->toArray();
+
+
+
+        return view('admin.posts.edit', compact('post', 'categories', 'tags', 'post_tag_ids'));
     }
 
     /**
@@ -94,6 +99,10 @@ class PostController extends Controller
         $post = Post::findOrFail($id);
         $data = $request->all();
         $post->update($data);
+
+        if(!array_key_exists('tags', $data)) {
+            $post->tags()->detach($data['tags']);
+        } else $post->tags()->sync($data['tags']);
 
         return redirect()->route('admin.posts.show', $post->id);
     }
